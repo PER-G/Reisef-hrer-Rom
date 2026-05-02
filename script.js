@@ -5,6 +5,7 @@
 const HOTEL = {
   name: "Merulana Inn",
   address: "Via Merulana 19, Roma",
+  mapsName: "Merulana Inn, Via Merulana 19, Roma",
   lat: 41.8941,
   lng: 12.4979,
 };
@@ -42,6 +43,17 @@ const FOOD_SVG =
 
 /* ============================================================
    ZONEN
+
+   Felder pro Location:
+   - name          Anzeigename (deutsch)
+   - mapsName      Suchname für Google Maps (italienischer Originalname)
+   - desc          Beschreibungstext
+   - image         Bild-URL (nur Sehenswürdigkeiten)
+   - lat, lng      Koordinaten (für Walking-Route)
+   - stroller      "yes" | "careful" | "no"
+   - badges        Optional: Array von Hinweis-Tags
+   - ticketUrl     Optional: Direktlink zur offiziellen Ticket-Seite
+   - price         Nur bei Restaurants
    ============================================================ */
 const ZONES = [
   {
@@ -53,15 +65,18 @@ const ZONES = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1280px-Colosseo_2020.jpg",
     sights: [
       {
-        name: "Kolosseum (Außenansicht)",
-        desc: "Das gewaltigste Bauwerk der Antike – schon der Anblick von außen ist überwältigend. Mit Baby Innenbesuch auf 1,5 h begrenzen.",
+        name: "Kolosseum",
+        mapsName: "Colosseo, Roma",
+        desc: "Das gewaltigste Bauwerk der Antike. Außenansicht reicht oft – innen mit Baby auf 1,5 h begrenzen. Tickets unbedingt vorab online.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1280px-Colosseo_2020.jpg",
         lat: 41.8902, lng: 12.4922,
         stroller: "careful",
-        badges: ["Tickets vorab buchen", "Innen viele Stufen zwischen den Rängen"],
+        badges: ["Tickets vorab", "Innen viele Stufen"],
+        ticketUrl: "https://ticketing.colosseo.it/en/",
       },
       {
         name: "Konstantinsbogen",
+        mapsName: "Arco di Costantino, Roma",
         desc: "Direkt neben dem Kolosseum, kostenlos und immer zugänglich. Schöner Foto-Spot mit Forum-Blick.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Arch_of_Constantine_%28Rome%29_-_South_side%2C_from_Via_triumphalis.jpg/1280px-Arch_of_Constantine_%28Rome%29_-_South_side%2C_from_Via_triumphalis.jpg",
         lat: 41.8898, lng: 12.4906,
@@ -69,13 +84,17 @@ const ZONES = [
       },
       {
         name: "Forum Romanum (Blick von oben)",
+        mapsName: "Foro Romano, Roma",
         desc: "Vom Fußweg an der Via dei Fori Imperiali habt ihr eine grandiose Aussicht auf das ganze Forum – ohne Eintritt, ohne Treppen.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Foro_Romano_Musei_Capitolini_Roma.jpg/1280px-Foro_Romano_Musei_Capitolini_Roma.jpg",
         lat: 41.8925, lng: 12.4853,
         stroller: "yes",
+        ticketUrl: "https://ticketing.colosseo.it/en/",
+        badges: ["Innenbesuch nur mit Kombi-Ticket Kolosseum"],
       },
       {
         name: "Piazza della Madonna dei Monti",
+        mapsName: "Piazza della Madonna dei Monti, Roma",
         desc: "Herz des Viertels Monti: kleiner Brunnen, Cafés, Eisdielen, ruhige Pause zwischendurch. Boho-Flair, kinderwagenfreundlich.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Rome_via_dei_fori_imperiali_20050922.jpg/1280px-Rome_via_dei_fori_imperiali_20050922.jpg",
         lat: 41.8946, lng: 12.4914,
@@ -86,23 +105,26 @@ const ZONES = [
     restaurants: [
       {
         name: "Trattoria Luzzi",
+        mapsName: "Trattoria Luzzi, Roma",
         desc: "Klassiker direkt am Kolosseum: einfache römische Küche, große Portionen, fairer Preis. Familien willkommen.",
         lat: 41.8896, lng: 12.4949,
-        price: "€ 10–15 / Hauptgericht",
+        price: "10–15 € / Hauptgericht",
         badges: ["Familienfreundlich", "Voll mittags – früh kommen"],
       },
       {
         name: "La Taverna dei Fori Imperiali",
+        mapsName: "La Taverna dei Fori Imperiali, Roma",
         desc: "Etwas gehobener, sehr gutes Essen, familiäre Atmosphäre. Reservierung empfehlenswert.",
         lat: 41.8943, lng: 12.4895,
-        price: "€ 14–22 / Hauptgericht",
+        price: "14–22 € / Hauptgericht",
         badges: ["Reservieren!"],
       },
       {
-        name: "Pizzeria Alle Carrette (Monti)",
+        name: "Pizzeria Alle Carrette",
+        mapsName: "Pizzeria Alle Carrette, Roma",
         desc: "Unkomplizierte Pizza im Holzofen, mitten in Monti. Schnell, günstig, ehrlich.",
         lat: 41.8943, lng: 12.4912,
-        price: "€ 7–12 / Pizza",
+        price: "7–12 € / Pizza",
         badges: ["Auch zum Mitnehmen"],
       },
     ],
@@ -118,6 +140,7 @@ const ZONES = [
     sights: [
       {
         name: "Trevi-Brunnen",
+        mapsName: "Fontana di Trevi, Roma",
         desc: "Barocker Wahnsinn aus Marmor und Wasser. Tipp: morgens vor 9 Uhr oder spätabends besuchen, dann ist es deutlich leerer.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Trevi_Fountain_-_Roma.jpg/1280px-Trevi_Fountain_-_Roma.jpg",
         lat: 41.9009, lng: 12.4833,
@@ -126,14 +149,17 @@ const ZONES = [
       },
       {
         name: "Pantheon",
+        mapsName: "Pantheon, Roma",
         desc: "Das besterhaltene Bauwerk der Antike – die Kuppel ist ein Wunder der Ingenieurskunst. Innen weniger Stufen als gedacht.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Pantheon_%28Rome%29_-_Right_side_and_front.jpg/1280px-Pantheon_%28Rome%29_-_Right_side_and_front.jpg",
         lat: 41.8986, lng: 12.4769,
         stroller: "yes",
-        badges: ["Eintritt mit Ticket"],
+        badges: ["Eintritt mit Ticket", "Zeitfenster wählen"],
+        ticketUrl: "https://www.pantheonroma.com/en/visit-the-pantheon/",
       },
       {
         name: "Piazza Navona",
+        mapsName: "Piazza Navona, Roma",
         desc: "Eleganter Platz mit drei Brunnen, Straßenkünstlern und viel Platz für den Kinderwagen. Perfekt für eine längere Pause.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Piazza_Navona_%28Rome%29_at_night.jpg/1280px-Piazza_Navona_%28Rome%29_at_night.jpg",
         lat: 41.8992, lng: 12.4731,
@@ -141,6 +167,7 @@ const ZONES = [
       },
       {
         name: "Campo de' Fiori",
+        mapsName: "Campo de' Fiori, Roma",
         desc: "Lebendiger Markt am Vormittag (Obst, Blumen, Gewürze), abends Bar-Szene. Schöner Abstecher von Piazza Navona.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Campo_dei_Fiori.jpg/1280px-Campo_dei_Fiori.jpg",
         lat: 41.8954, lng: 12.4720,
@@ -151,23 +178,26 @@ const ZONES = [
     restaurants: [
       {
         name: "Osteria dell'Ingegno",
+        mapsName: "Osteria dell'Ingegno, Roma",
         desc: "Moderne römische Küche, nahe Pantheon, schöner Außenbereich an einer ruhigen Piazza. Mittlere Preise.",
         lat: 41.8979, lng: 12.4805,
-        price: "€ 14–20 / Hauptgericht",
+        price: "14–20 € / Hauptgericht",
         badges: ["Außenplätze"],
       },
       {
         name: "Pizzeria da Baffetto",
+        mapsName: "Pizzeria da Baffetto, Roma",
         desc: "Legendäre römische Pizza, dünner Boden. Eng, voll, schnell – aber ein Stück Rom-Geschichte.",
         lat: 41.8989, lng: 12.4708,
-        price: "€ 8–13 / Pizza",
+        price: "8–13 € / Pizza",
         badges: ["Schlange ab 19 Uhr", "Eng – Trage besser"],
       },
       {
         name: "Gelateria del Teatro",
+        mapsName: "Gelateria del Teatro, Roma",
         desc: "Eis aus Bio-Zutaten, viele unerwartete Sorten (Lavendel, Salbei-Himbeere). Eine der besten Gelaterien Roms.",
         lat: 41.8989, lng: 12.4715,
-        price: "€ 3–5 / Becher",
+        price: "3–5 € / Becher",
         badges: ["Sehr empfehlenswert"],
       },
     ],
@@ -183,6 +213,7 @@ const ZONES = [
     sights: [
       {
         name: "San Giovanni in Laterano",
+        mapsName: "Arcibasilica di San Giovanni in Laterano, Roma",
         desc: "Eigentliche Bischofskirche des Papstes – größer und ruhiger als der Petersdom. Innenraum monumental, kaum Stufen.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/San_Giovanni_in_Laterano_2021.jpg/1280px-San_Giovanni_in_Laterano_2021.jpg",
         lat: 41.8859, lng: 12.5057,
@@ -191,6 +222,7 @@ const ZONES = [
       },
       {
         name: "Piazza San Giovanni & Lateran-Obelisk",
+        mapsName: "Piazza di San Giovanni in Laterano, Roma",
         desc: "Der älteste und größte Obelisk Roms (1500 v. Chr., 32 m hoch). Riesiger Platz, perfekt zum Durchatmen mit Kinderwagen.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/San_Giovanni_in_Laterano_2021.jpg/1280px-San_Giovanni_in_Laterano_2021.jpg",
         lat: 41.8866, lng: 12.5053,
@@ -198,6 +230,7 @@ const ZONES = [
       },
       {
         name: "Santa Maria Maggiore",
+        mapsName: "Basilica di Santa Maria Maggiore, Roma",
         desc: "Eine der vier Papstbasiliken, atemberaubende Mosaike aus dem 5. Jahrhundert. Auf eurem Weg zwischen Hotel und Centro.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Basilica_di_Santa_Maria_Maggiore_-_Roma.jpg/1280px-Basilica_di_Santa_Maria_Maggiore_-_Roma.jpg",
         lat: 41.8975, lng: 12.4986,
@@ -206,6 +239,7 @@ const ZONES = [
       },
       {
         name: "Scala Santa (Heilige Stufen)",
+        mapsName: "Scala Santa, Roma",
         desc: "Pilgerstätte gegenüber San Giovanni: 28 Marmorstufen, die Pilger nur auf Knien hinauf bewältigen. Außenbesichtigung lohnt sich.",
         image: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Rom%2C_die_Heilige_Treppe.JPG",
         lat: 41.8865, lng: 12.5066,
@@ -213,7 +247,8 @@ const ZONES = [
         badges: ["Innen nur Treppen", "Trage nehmen"],
       },
       {
-        name: "Palazzo Merulana (außen)",
+        name: "Palazzo Merulana",
+        mapsName: "Palazzo Merulana, Roma",
         desc: "Direkt an eurer Via Merulana: schöne Fassade, kleine Kunstsammlung im Inneren. Schöner Spaziergangs-Stop.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Basilica_di_Santa_Maria_Maggiore_-_Roma.jpg/1280px-Basilica_di_Santa_Maria_Maggiore_-_Roma.jpg",
         lat: 41.8943, lng: 12.5005,
@@ -223,23 +258,26 @@ const ZONES = [
     restaurants: [
       {
         name: "Trattoria Monti",
+        mapsName: "Trattoria Monti, Roma",
         desc: "Familienbetrieb, regionale Küche aus den Marken (Le Marche), berühmt für Tortelli. Reservieren!",
         lat: 41.8970, lng: 12.4988,
-        price: "€ 14–22 / Hauptgericht",
+        price: "14–22 € / Hauptgericht",
         badges: ["Reservieren!", "Sehr hoch bewertet"],
       },
       {
         name: "Pasta Chef Monti",
+        mapsName: "Pasta Chef Monti, Roma",
         desc: "Frische Pasta zum kleinen Preis, schnell und super zentral. Auch zum Mitnehmen ins Hotel.",
         lat: 41.8956, lng: 12.4960,
-        price: "€ 7–11 / Portion",
+        price: "7–11 € / Portion",
         badges: ["To go möglich"],
       },
       {
-        name: "Li Rioni (Pizzeria, abends)",
+        name: "Li Rioni Pizzeria",
+        mapsName: "Li Rioni, Roma",
         desc: "Klassische römisch-dünne Pizza in entspannter Atmosphäre. Ab 19:30 geöffnet, gut für einen späten Abend.",
         lat: 41.8867, lng: 12.5023,
-        price: "€ 8–13 / Pizza",
+        price: "8–13 € / Pizza",
         badges: ["Nur abends"],
       },
     ],
@@ -256,6 +294,7 @@ const ZONES = [
     sights: [
       {
         name: "Petersplatz",
+        mapsName: "Piazza San Pietro, Vaticano",
         desc: "Berninis monumentaler Platz mit den 284 Säulen. Komplett eben, ideal mit Kinderwagen. Sicherheitskontrolle vor Eintritt.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/St_Peter%27s_Square%2C_Vatican_City_-_April_2007.jpg/1280px-St_Peter%27s_Square%2C_Vatican_City_-_April_2007.jpg",
         lat: 41.9022, lng: 12.4567,
@@ -263,31 +302,38 @@ const ZONES = [
         badges: ["Sicherheitscheck am Eingang"],
       },
       {
-        name: "Petersdom (innen, ohne Kuppel)",
-        desc: "Größte Kirche der Welt: Pietà, Bernini-Baldachin, Marmorpracht ohne Ende. Innen relativ barrierearm.",
+        name: "Petersdom",
+        mapsName: "Basilica di San Pietro, Vaticano",
+        desc: "Größte Kirche der Welt: Pietà, Bernini-Baldachin, Marmorpracht ohne Ende. Eintritt frei – Reservierung erspart Wartezeit.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg/1280px-Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg",
         lat: 41.9022, lng: 12.4533,
         stroller: "careful",
-        badges: ["Kostenlos", "Wartezeit – früh kommen", "Schultern bedeckt!"],
+        badges: ["Kostenlos", "Reservierung empfohlen", "Schultern bedeckt!"],
+        ticketUrl: "https://www.basilicasanpietro.va/en/products",
       },
       {
         name: "Petersdom – Kuppelaufstieg",
-        desc: "551 Stufen bis ganz oben (oder 320 Stufen + Aufzug). Atemberaubender Blick. Mit Baby nur in Trage und nur, wenn beide fit sind.",
+        mapsName: "Cupola di San Pietro, Vaticano",
+        desc: "551 Stufen bis ganz oben (oder 320 + Aufzug). Atemberaubender Blick. Mit Baby nur in Trage und nur, wenn beide fit sind.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg/1280px-Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg",
         lat: 41.9022, lng: 12.4534,
         stroller: "no",
         badges: ["Trage zwingend", "Eng & steil"],
+        ticketUrl: "https://www.basilicasanpietro.va/en/products/the-dome",
       },
       {
-        name: "Engelsburg (außen + Brücke)",
+        name: "Engelsburg",
+        mapsName: "Castel Sant'Angelo, Roma",
         desc: "Die Engelsbrücke mit den zehn Bernini-Engeln führt direkt zur Burg. Fotostopp pflicht. Innenbesuch mit Kinderwagen schwierig.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Castel_Sant%27_Angelo_Between_Leaves.jpg/1280px-Castel_Sant%27_Angelo_Between_Leaves.jpg",
         lat: 41.9031, lng: 12.4663,
         stroller: "careful",
         badges: ["Innen viele Treppen → Trage"],
+        ticketUrl: "https://museonazionalecastelsantangelo.cultura.gov.it/",
       },
       {
         name: "Borgo Pio",
+        mapsName: "Borgo Pio, Roma",
         desc: "Charmante Fußgängerzone zwischen Vatikan und Engelsburg: Restaurants, kleine Geschäfte, Touri-Klassiker mit Atmosphäre.",
         image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Passetto_di_Borgo_from_Castel_Sant%27Angelo_01.jpg",
         lat: 41.9028, lng: 12.4612,
@@ -297,23 +343,26 @@ const ZONES = [
     restaurants: [
       {
         name: "Il Sorpasso",
+        mapsName: "Il Sorpasso, Roma",
         desc: "Modernes Bistro im Viertel Prati, hervorragende Aufschnitt-Platten und Pasta. Gut für einen späten Lunch.",
         lat: 41.9078, lng: 12.4609,
-        price: "€ 13–20 / Hauptgericht",
+        price: "13–20 € / Hauptgericht",
         badges: ["Trendy", "Reservieren"],
       },
       {
-        name: "Pizzarium (Bonci)",
+        name: "Pizzarium Bonci",
+        mapsName: "Pizzarium Bonci, Roma",
         desc: "Beste Pizza al taglio Roms (Bonci). Zum Mitnehmen, im Stehen essen. Nahe Vatikanmuseen.",
         lat: 41.9075, lng: 12.4475,
-        price: "€ 4–8 / Stück",
+        price: "4–8 € / Stück",
         badges: ["Nur Stehplätze", "Kult"],
       },
       {
-        name: "Trattoria Tony (Borgo Pio)",
-        desc: "Solide Trattoria in der Fußgängerzone: einfache Pasta, höflicher Service, schöne Außenplätze.",
+        name: "Trattoria Tony",
+        mapsName: "Trattoria Tony Borgo Pio, Roma",
+        desc: "Solide Trattoria in der Fußgängerzone Borgo Pio: einfache Pasta, höflicher Service, schöne Außenplätze.",
         lat: 41.9027, lng: 12.4625,
-        price: "€ 11–17 / Hauptgericht",
+        price: "11–17 € / Hauptgericht",
         badges: ["Kinderwagen ok"],
       },
     ],
@@ -329,6 +378,7 @@ const ZONES = [
     sights: [
       {
         name: "Piazza del Popolo",
+        mapsName: "Piazza del Popolo, Roma",
         desc: "Riesiger ovaler Platz mit ägyptischem Obelisk, drei Kirchen, Brunnen. Komplett eben, ideal als Treffpunkt.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/PIAZZA_DEL_POPOLO_VISTA_AEREA.jpg/1280px-PIAZZA_DEL_POPOLO_VISTA_AEREA.jpg",
         lat: 41.9108, lng: 12.4768,
@@ -336,6 +386,7 @@ const ZONES = [
       },
       {
         name: "Pincio-Terrasse",
+        mapsName: "Terrazza del Pincio, Roma",
         desc: "Aussichtsterrasse über Piazza del Popolo bis zum Petersdom – einer der schönsten Sonnenuntergänge Roms.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Terrazza_del_Pincio_%2846397854832%29.jpg/1280px-Terrazza_del_Pincio_%2846397854832%29.jpg",
         lat: 41.9116, lng: 12.4794,
@@ -344,6 +395,7 @@ const ZONES = [
       },
       {
         name: "Villa Borghese (Park)",
+        mapsName: "Villa Borghese, Roma",
         desc: "Großer englischer Landschaftspark: Spielplätze, Tretboote auf dem Laghetto, schattige Wege. Perfekt mit Kinderwagen.",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg/1280px-Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg",
         lat: 41.9135, lng: 12.4849,
@@ -351,34 +403,39 @@ const ZONES = [
         badges: ["Spielplätze", "Tretboote"],
       },
       {
-        name: "Galleria Borghese (optional)",
+        name: "Galleria Borghese",
+        mapsName: "Galleria Borghese, Roma",
         desc: "Berninis Apoll & Daphne, Caravaggio-Meisterwerke. NUR mit Online-Ticket und Zeitfenster (2-Stunden-Slot).",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg/1280px-Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg",
         lat: 41.9142, lng: 12.4922,
         stroller: "careful",
         badges: ["Ticket Pflicht!", "Buggy-Abgabe vor Eintritt"],
+        ticketUrl: "https://galleriaborghese.beniculturali.it/en/visita/info-biglietti/",
       },
     ],
     restaurants: [
       {
         name: "Casina Valadier",
+        mapsName: "Casina Valadier, Roma",
         desc: "Restaurant mit Aussichts-Terrasse oberhalb von Piazza del Popolo. Schöner als günstig – einen Caffè wert.",
         lat: 41.9120, lng: 12.4783,
-        price: "€ 18–28 / Hauptgericht",
+        price: "18–28 € / Hauptgericht",
         badges: ["Aussicht"],
       },
       {
-        name: "Ginger Sapori e Salute (Via del Corso)",
-        desc: "Frische, leichte Küche – Salate, Bowls, gepresste Säfte. Angenehme Pause vom Pasta-Marathon.",
+        name: "Ginger Sapori e Salute",
+        mapsName: "Ginger Sapori e Salute Via del Corso, Roma",
+        desc: "Frische, leichte Küche an der Via del Corso – Salate, Bowls, gepresste Säfte. Angenehme Pause vom Pasta-Marathon.",
         lat: 41.9067, lng: 12.4791,
-        price: "€ 12–18 / Gericht",
+        price: "12–18 € / Gericht",
         badges: ["Vegetarisch ok", "Hochstühle vorhanden"],
       },
       {
         name: "Caffè Canova-Tadolini",
+        mapsName: "Canova Tadolini, Roma",
         desc: "Außergewöhnliches Café im ehemaligen Atelier des Bildhauers Canova – zwischen Skulpturen Pasta essen.",
         lat: 41.9078, lng: 12.4823,
-        price: "€ 12–22 / Gericht",
+        price: "12–22 € / Gericht",
         badges: ["Atmosphäre!"],
       },
     ],
@@ -388,29 +445,29 @@ const ZONES = [
 /* ============================================================
    Google-Maps-Helfer (iPhone-kompatibel)
    ============================================================ */
-function mapsSearchUrl(lat, lng, name, type) {
-  // iPhone: öffnet automatisch in der Google-Maps-App, falls installiert.
-  // Bei Restaurants suchen wir nach Name (zeigt Restaurant-Karte).
-  // Bei Sehenswürdigkeiten verwenden wir Koordinaten (präzise Pin-Position).
-  if (type === "restaurant") {
-    const q = encodeURIComponent(`${name}, Rome`);
-    return `https://www.google.com/maps/search/?api=1&query=${q}`;
-  }
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
+/* Direkt zur Place-Card eines Ortes – iPhone öffnet Google-Maps-App */
+function mapsPlaceUrl(item) {
+  const q = encodeURIComponent(item.mapsName || `${item.name}, Roma`);
+  return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
-function mapsSimpleUrl(lat, lng) {
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+/* Hotel-Pin (Adresse) */
+function mapsHotelUrl() {
+  const q = encodeURIComponent(HOTEL.mapsName);
+  return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
-function walkingRouteUrl(stops) {
-  // stops: array of {lat, lng}, mind. 2
-  if (!stops.length) return "#";
-  const origin = `${HOTEL.lat},${HOTEL.lng}`;
-  const destination = `${stops[stops.length - 1].lat},${stops[stops.length - 1].lng}`;
-  const waypoints = stops
+/* Spaziergang ab Hotel über alle Sehenswürdigkeiten der Zone (zu Fuß).
+   Nutzt Place-Namen statt Koordinaten – Google Maps zeigt schöne Stops. */
+function walkingRouteUrl(sights) {
+  if (!sights.length) return "#";
+  const origin = encodeURIComponent(HOTEL.mapsName);
+  const last = sights[sights.length - 1];
+  const destination = encodeURIComponent(last.mapsName || `${last.name}, Roma`);
+  const waypoints = sights
     .slice(0, -1)
-    .map((s) => `${s.lat},${s.lng}`)
+    .map((s) => s.mapsName || `${s.name}, Roma`)
     .join("|");
   let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
   if (waypoints) url += `&waypoints=${encodeURIComponent(waypoints)}`;
@@ -463,8 +520,21 @@ function renderCard(item, type) {
     badgesEl.appendChild(tag);
   });
 
+  // Maps-Link (immer sichtbar)
   const link = node.querySelector(".card-link");
-  link.href = mapsSearchUrl(item.lat, item.lng, item.name, type);
+  link.href = mapsPlaceUrl(item);
+
+  // Ticket-Link (nur bei Sehenswürdigkeiten mit ticketUrl)
+  if (type === "sight" && item.ticketUrl) {
+    const ticketBtn = document.createElement("a");
+    ticketBtn.className = "card-ticket";
+    ticketBtn.href = item.ticketUrl;
+    ticketBtn.target = "_blank";
+    ticketBtn.rel = "noopener";
+    ticketBtn.innerHTML = `<span>🎟️</span><span>Tickets buchen (offiziell)</span>`;
+    link.parentNode.insertBefore(ticketBtn, link);
+  }
+
   return node;
 }
 
@@ -499,6 +569,7 @@ function renderZone(zone) {
     node.querySelector(".zone-body").prepend(note);
   }
 
+  // Spaziergang ab Hotel über alle Sehenswürdigkeiten – KEINE Restaurants
   const routeBtn = node.querySelector(".route-btn");
   routeBtn.href = walkingRouteUrl(zone.sights);
 
@@ -508,7 +579,6 @@ function renderZone(zone) {
     const open = node.classList.toggle("is-open");
     body.hidden = !open;
     if (open) {
-      // smooth scroll into view
       requestAnimationFrame(() => {
         node.scrollIntoView({ behavior: "smooth", block: "start" });
       });
@@ -522,8 +592,7 @@ function init() {
   const root = document.getElementById("zones");
   ZONES.forEach((z) => root.appendChild(renderZone(z)));
 
-  // Hotel-Maps-Link
-  document.getElementById("hotel-link").href = mapsSimpleUrl(HOTEL.lat, HOTEL.lng);
+  document.getElementById("hotel-link").href = mapsHotelUrl();
 }
 
 document.addEventListener("DOMContentLoaded", init);
