@@ -268,6 +268,47 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
   border-bottom: 2px solid var(--cream-2);
   padding-bottom: 0.4rem;
 }
+.zone-section.collapsible h4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.zone-section.collapsible h4:hover {
+  color: var(--terra-soft);
+  border-bottom-color: var(--terra-soft);
+}
+.zone-section.collapsible h4:focus-visible {
+  outline: 2px solid var(--terra);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.section-count {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-left: 0.3rem;
+}
+.section-icon {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  transition: transform 0.25s ease;
+  color: var(--terra);
+}
+.zone-section.is-collapsed .section-icon {
+  transform: rotate(-90deg);
+}
+.zone-section.collapsible.is-collapsed h4 {
+  margin-bottom: 0;
+  border-bottom-color: transparent;
+}
+.zone-section.collapsible:not(.is-collapsed) h4 {
+  margin-bottom: 0.9rem;
+}
 
 .cards {
   display: grid;

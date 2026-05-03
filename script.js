@@ -459,15 +459,17 @@ function mapsHotelUrl() {
 }
 
 /* Spaziergang ab Hotel über alle Sehenswürdigkeiten der Zone (zu Fuß).
-   Nutzt Place-Namen statt Koordinaten – Google Maps zeigt schöne Stops. */
+   Nutzt Koordinaten – die iOS-Google-Maps-App geocodiert Place-Namen
+   in Multi-Stop-Routen unzuverlässig (Vorschau ja, Berechnung nein).
+   Mit "lat,lng"-Waypoints klappt die Routenberechnung verlässlich. */
 function walkingRouteUrl(sights) {
   if (!sights.length) return "#";
-  const origin = encodeURIComponent(HOTEL.mapsName);
+  const origin = `${HOTEL.lat},${HOTEL.lng}`;
   const last = sights[sights.length - 1];
-  const destination = encodeURIComponent(last.mapsName || `${last.name}, Roma`);
+  const destination = `${last.lat},${last.lng}`;
   const waypoints = sights
     .slice(0, -1)
-    .map((s) => s.mapsName || `${s.name}, Roma`)
+    .map((s) => `${s.lat},${s.lng}`)
     .join("|");
   let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
   if (waypoints) url += `&waypoints=${encodeURIComponent(waypoints)}`;
@@ -561,6 +563,29 @@ function renderZone(zone) {
 
   const restEl = node.querySelector(".cards.restaurants");
   zone.restaurants.forEach((r) => restEl.appendChild(renderCard(r, "restaurant")));
+
+  // Restaurants standardmäßig eingeklappt – eigener Toggle
+  const restSection = restEl.parentElement;
+  const restHeader = restSection.querySelector("h4");
+  restEl.hidden = true;
+  restSection.classList.add("collapsible", "is-collapsed");
+  restHeader.innerHTML = `
+    <span>Essen &amp; Trinken <span class="section-count">(${zone.restaurants.length})</span></span>
+    <span class="section-icon">▾</span>
+  `;
+  restHeader.setAttribute("role", "button");
+  restHeader.setAttribute("tabindex", "0");
+  const toggleRest = () => {
+    const collapsed = restSection.classList.toggle("is-collapsed");
+    restEl.hidden = collapsed;
+  };
+  restHeader.addEventListener("click", toggleRest);
+  restHeader.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleRest();
+    }
+  });
 
   if (zone.transportNote) {
     const note = document.createElement("p");
