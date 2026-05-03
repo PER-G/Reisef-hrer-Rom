@@ -567,7 +567,7 @@ function renderZone(zone) {
   // Restaurants standardmäßig eingeklappt – eigener Toggle
   const restSection = restEl.parentElement;
   const restHeader = restSection.querySelector("h4");
-  restEl.hidden = true;
+  restEl.classList.add("is-hidden");
   restSection.classList.add("collapsible", "is-collapsed");
   restHeader.innerHTML = `
     <span>Essen &amp; Trinken <span class="section-count">(${zone.restaurants.length})</span></span>
@@ -575,9 +575,10 @@ function renderZone(zone) {
   `;
   restHeader.setAttribute("role", "button");
   restHeader.setAttribute("tabindex", "0");
-  const toggleRest = () => {
+  const toggleRest = (e) => {
+    if (e) e.preventDefault();
     const collapsed = restSection.classList.toggle("is-collapsed");
-    restEl.hidden = collapsed;
+    restEl.classList.toggle("is-hidden", collapsed);
   };
   restHeader.addEventListener("click", toggleRest);
   restHeader.addEventListener("keydown", (e) => {
