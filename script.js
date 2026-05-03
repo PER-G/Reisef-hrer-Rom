@@ -329,7 +329,7 @@ const ZONES = [
         lat: 41.9031, lng: 12.4663,
         stroller: "careful",
         badges: ["Innen viele Treppen → Trage"],
-        ticketUrl: "https://museonazionalecastelsantangelo.cultura.gov.it/",
+        ticketUrl: "https://www.coopculture.it/en/poi/castel-santangelo/",
       },
       {
         name: "Borgo Pio",
