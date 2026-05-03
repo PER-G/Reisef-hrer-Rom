@@ -286,12 +286,22 @@ const ZONES = [
   {
     id: "vatikan",
     tag: "Tag-Idee · Vatikan",
-    title: "Vatikan & Engelsburg",
-    summary: "Petersplatz, Petersdom, Engelsburg und die Gassen von Borgo Pio – einmal über den Tiber, alles zu Fuß.",
-    walkFromHotel: "Mit Taxi/Metro (~15 Min.) zum Vatikan, vor Ort alles fußläufig",
+    title: "Vatikan, Sixtinische Kapelle & Engelsburg",
+    summary: "Vatikanische Museen mit Sixtinischer Kapelle, Petersplatz, Petersdom, Engelsburg und Borgo Pio – ein voller Tag, der sich aber lohnt.",
+    walkFromHotel: "Mit Taxi/Metro (~15 Min.) zu den Vatikan-Museen, vor Ort alles fußläufig",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/St_Peter%27s_Square%2C_Vatican_City_-_April_2007.jpg/1280px-St_Peter%27s_Square%2C_Vatican_City_-_April_2007.jpg",
-    transportNote: "Vom Hotel zum Vatikan ist der Fußweg mit Baby zu lang – einmal Taxi (~12 €) oder Metro Linie A (Vittorio Emanuele → Ottaviano).",
+    transportNote: "Anreise zur Sixtinischen Kapelle: Taxi (~12 €) direkt zum Eingang Viale Vaticano oder Metro A bis Ottaviano (5 Min. Fußweg). Tickets unbedingt vorab buchen, sonst 1–2 h Schlange! Tipp: frühestmöglichen Slot (8:00 oder 8:30) nehmen, dann ist die Kapelle deutlich leerer.",
     sights: [
+      {
+        name: "Vatikanische Museen & Sixtinische Kapelle",
+        mapsName: "Musei Vaticani, Vaticano",
+        desc: "Michelangelos Decke, Raffaels Stanzen, kilometerlange Galerien. Die Route führt automatisch durch alle Säle bis zur Sixtinischen Kapelle am Ende. Kalkuliert 2–3 h ein.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/8/82/Sistina-interno.jpg",
+        lat: 41.9065, lng: 12.4536,
+        stroller: "careful",
+        badges: ["Tickets zwingend vorab", "Sehr voll – Trage besser", "In Kapelle: kein Foto, Stille", "Schultern + Knie bedeckt"],
+        ticketUrl: "https://tickets.museivaticani.va/home",
+      },
       {
         name: "Petersplatz",
         mapsName: "Piazza San Pietro, Vaticano",
@@ -322,6 +332,14 @@ const ZONES = [
         ticketUrl: "https://www.basilicasanpietro.va/en/products/the-dome",
       },
       {
+        name: "Borgo Pio",
+        mapsName: "Borgo Pio, Roma",
+        desc: "Charmante Fußgängerzone zwischen Vatikan und Engelsburg: Restaurants, kleine Geschäfte, Touri-Klassiker mit Atmosphäre.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Passetto_di_Borgo_from_Castel_Sant%27Angelo_01.jpg",
+        lat: 41.9028, lng: 12.4612,
+        stroller: "yes",
+      },
+      {
         name: "Engelsburg",
         mapsName: "Castel Sant'Angelo, Roma",
         desc: "Die Engelsbrücke mit den zehn Bernini-Engeln führt direkt zur Burg. Fotostopp pflicht. Innenbesuch mit Kinderwagen schwierig.",
@@ -330,14 +348,6 @@ const ZONES = [
         stroller: "careful",
         badges: ["Innen viele Treppen → Trage"],
         ticketUrl: "https://www.coopculture.it/en/poi/castel-santangelo/",
-      },
-      {
-        name: "Borgo Pio",
-        mapsName: "Borgo Pio, Roma",
-        desc: "Charmante Fußgängerzone zwischen Vatikan und Engelsburg: Restaurants, kleine Geschäfte, Touri-Klassiker mit Atmosphäre.",
-        image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Passetto_di_Borgo_from_Castel_Sant%27Angelo_01.jpg",
-        lat: 41.9028, lng: 12.4612,
-        stroller: "yes",
       },
     ],
     restaurants: [
